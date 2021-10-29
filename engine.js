@@ -20,6 +20,8 @@ class Engine {
         this.animating = false;
         this.collision_int;
         this.bounds_collision_int;
+        this.reverse_rotation = 360;
+        this.reverse_rotate_int;
         this.validateMapData();
         this.draw2DMap();
         this.bindKeyboard();
@@ -60,32 +62,34 @@ class Engine {
         var player = document.getElementById("player");
         this.anim_interval = setInterval(() => {
             var rotation = this.getRotation(player);
+            var player_top = parseInt(player.style.top);
+            var player_left = parseInt(player.style.left);
             switch (direction){
                 case "up":
                     if (rotation <= 360 && rotation > 270){
-                        rotation = Math.abs(rotation - 360) / 10; //abs converts negative to positive
-                        player.style.top = (parseInt(player.style.top) - speed) + "px";
-                        player.style.left = (parseInt(player.style.left) - rotation) + "px";
+                        var offset = Math.abs(rotation - 360) / 10; //abs converts negative to positive
+                        player.style.top = (player_top - speed) + "px";
+                        player.style.left = (player_left - offset) + "px";
                     } else if (rotation <= 270 && rotation >= 180){
-                        rotation = Math.abs(rotation - 270) / 90;
-                        //player.style.top = (parseInt(player.style.top) + speed) + "px";
-                        //player.style.left = (parseInt(player.style.left) - (rotation / 10)) + "px";
+                        var offset = Math.abs((this.reverse_rotation - 180) / 10);
+                        player.style.top = (player_top + speed) + "px";
+                        player.style.left = (player_left - offset) + "px";
                     } else if (rotation < 180 && rotation >= 90){
-                        rotation = rotation / 10;
-                        //player.style.top = (parseInt(player.style.top) - speed) + "px";
-                        //player.style.left = (parseInt(player.style.left) + rotation) + "px";
+                        var offset = (this.reverse_rotation - 180) / 10;
+                        player.style.top = (player_top + speed) + "px";
+                        player.style.left = (player_left + offset) + "px";
                     } else if (rotation <= 90){
-                        rotation = rotation / 10;
-                        player.style.top = (parseInt(player.style.top) - speed) + "px";
-                        player.style.left = (parseInt(player.style.left) + rotation) + "px";
+                        var offset = rotation / 10;
+                        player.style.top = (player_top - speed) + "px";
+                        player.style.left = (player_left + offset) + "px";
                     }
                     break;
                 case "down":
-                    player.style.top = (parseInt(player.style.top) + speed) + "px";
-                    player.style.left = (parseInt(player.style.left) - (rotation / 10)) + "px";
+                    //player.style.top = (player_top + speed) + "px";
+                    //player.style.left = (player_left - (rotation / 10)) + "px";
                     break;
                 }
-                console.log(rotation);
+                //console.log(this.reverse_rotation - 180);
                 //Diagonal directions work when dividing 0 - 90 by 10. Need to manually go in and cajole each rotation calc to a value between 0 - 90. Bottom quarters may need to have their caulcations reversed.
         }, speed);
     }
@@ -100,15 +104,24 @@ class Engine {
         return 0;
     }
     rotatePlayer(direction, speed){
+        this.reverse_rotate_int = setInterval(() => {
+            if (this.reverse_rotation > 360){
+                this.reverse_rotation = 0;
+            } else if (this.reverse_rotation < 0){
+                this.reverse_rotation = 360;
+            }
+        }, 10);
         var player = document.getElementById("player");
         if (direction === "counter"){
             this.rotate_interval = setInterval(() => {
                 player.style.transform = "rotate(" + (this.getRotation(player) - 1) + "deg)";
+                this.reverse_rotation++;
             }, speed);
         } else if (direction === "clock"){
             this.rotate_interval = setInterval(() => {
                 player.style.transform = "rotate(" + (this.getRotation(player) + 1) + "deg)";
-            }, speed)
+                this.reverse_rotation--;
+            }, speed);
         }
     }
     bindKeyboard(){
@@ -136,6 +149,7 @@ class Engine {
         document.addEventListener("keyup", (e) => {
             clearInterval(this.anim_interval);
             clearInterval(this.rotate_interval);
+            clearInterval(this.reverse_rotate_int);
             clearInterval(this.bounds_collision_int);
             //clearInterval(this.collision_int);
             this.animating = false;
