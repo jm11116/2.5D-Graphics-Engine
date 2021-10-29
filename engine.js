@@ -17,8 +17,6 @@ class Engine {
         this.scale_factor = window.innerHeight / 10; //Smaller = bigger
         this.anim_interval;
         this.rotate_interval;
-        this.left_offset = 0;
-        this.top_offset = 0;
         this.animating = false;
         this.collision_int;
         this.wall_ids = [];
@@ -58,7 +56,7 @@ class Engine {
             document.getElementById("container").appendChild(tile);
         });
     }
-    movePlayer(direction, speed){
+    animatePlayer(direction, speed){
         var player = document.getElementById("player");
         this.anim_interval = setInterval(function(){
             switch (direction){
@@ -68,14 +66,9 @@ class Engine {
                 case "down":
                     player.style.top = (parseInt(player.style.top) + speed) + "px";
                     break;
-                case "left":
-                    player.style.left = ((parseInt(player.style.left) - this.left_offset) - speed) + "px";
-                    break;
-                case "right":
-                    player.style.left = (parseInt(player.style.left) + speed) + "px";
-                    break;
                 }
         }, speed);
+        //For each degree of rotation, the box will need to move a little bit faster in that direction? So, 0 degrees will change top: -1, left: 0 for a 1 pixel height decrease. 1 degrees will change top -1, left -1 (1 pixel height decrease, 1 pixel right increase). Won't adding 180 to left/right adjustments be fucked, though? Should it just be capped at 1 - 5 pixels left depending on degree of rotation?
     }
     getRotation(element){
         var style = window.getComputedStyle(element, null);
@@ -107,10 +100,10 @@ class Engine {
                 //this.detectCollision();
                 switch (code) {
                     case 38:
-                        this.movePlayer("up", 2);
+                        this.animatePlayer("up", 2);
                         break;
                     case 40:
-                        this.movePlayer("down", 2);
+                        this.animatePlayer("down", 2);
                         break;
                     case 37:
                         this.rotatePlayer("counter", 2);
