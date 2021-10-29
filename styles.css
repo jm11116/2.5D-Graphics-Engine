@@ -1,0 +1,36 @@
+body {
+    background-color: black;
+}
+#container {
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+.column {
+    background-color: grey;
+    top: 0px;
+    position: absolute;
+}
+.vertical_center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+.tile {
+    position: absolute;
+}
+.wall_tile {
+    background-color: teal;
+}
+.floor_tile {
+    background-color: grey;
+}
+.player {
+    background-color: red;
+    z-index: 999 !important;
+}
