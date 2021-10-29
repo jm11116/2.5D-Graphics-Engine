@@ -63,16 +63,21 @@ class Engine {
             switch (direction){
                 case "up":
                     if (rotation <= 360 && rotation > 270){
-                        rotation = Math.abs(rotation - 360); //abs converts negative to positive
+                        rotation = Math.abs(rotation - 360) / 10; //abs converts negative to positive
                         player.style.top = (parseInt(player.style.top) - speed) + "px";
-                        player.style.left = (parseInt(player.style.left) - (rotation / 10)) + "px";
+                        player.style.left = (parseInt(player.style.left) - rotation) + "px";
                     } else if (rotation <= 270 && rotation >= 180){
-                        rotation = Math.abs(rotation - 270);
+                        rotation = Math.abs(rotation - 270) / 90;
                         //player.style.top = (parseInt(player.style.top) + speed) + "px";
                         //player.style.left = (parseInt(player.style.left) - (rotation / 10)) + "px";
+                    } else if (rotation < 180 && rotation >= 90){
+                        rotation = rotation / 10;
+                        //player.style.top = (parseInt(player.style.top) - speed) + "px";
+                        //player.style.left = (parseInt(player.style.left) + rotation) + "px";
                     } else if (rotation <= 90){
+                        rotation = rotation / 10;
                         player.style.top = (parseInt(player.style.top) - speed) + "px";
-                        player.style.left = (parseInt(player.style.left) + (rotation / 10)) + "px";
+                        player.style.left = (parseInt(player.style.left) + rotation) + "px";
                     }
                     break;
                 case "down":
