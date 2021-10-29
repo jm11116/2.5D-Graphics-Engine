@@ -19,6 +19,7 @@ class Engine {
         this.rotate_interval;
         this.animating = false;
         this.collision_int;
+        this.bounds_collision_int;
         this.wall_ids = [];
         this.validateMapData();
         this.draw2DMap();
@@ -94,6 +95,7 @@ class Engine {
     }
     bindKeyboard(){
         document.addEventListener("keydown", (e) => {
+            this.boundsCollision();
             var code = e.which || e.key;
             if (this.animating === false){
                 this.animating = true;
@@ -117,10 +119,27 @@ class Engine {
         document.addEventListener("keyup", (e) => {
             clearInterval(this.anim_interval);
             clearInterval(this.rotate_interval);
+            clearInterval(this.bounds_collision_int);
             //clearInterval(this.collision_int);
             this.animating = false;
         });
     }
+    /*boundsCollision(){
+        this.bounds_collision_int = setInterval(() => {
+            var last_bottom = 0;
+            $(".wall_tile").each(function(i){
+                if (i = 0){
+                    last_bottom = $(this).position().top + $(this).height();
+                } else if (($(this).position().top + $(this).height()) > last_bottom){ //Search for map bottom, lowest value of bottom wall tiles (or highest since CSS)?
+                    last_bottom = $(this).position().top + $(this).height();
+                }
+                if (($("#player").position().top + $("#player").height()) > last_bottom){
+                    clearInterval(this.anim_interval);
+                    alert("Collision");
+                }
+            });
+        }, 2000);
+    }*/
     /*detectCollision(){
         this.collision_int = setInterval(() => {
             var player_left = $("#player").position().left;
