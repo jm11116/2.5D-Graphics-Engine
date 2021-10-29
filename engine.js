@@ -17,6 +17,8 @@ class Engine {
         this.scale_factor = window.innerHeight / 10; //Smaller = bigger
         this.anim_interval;
         this.rotate_interval;
+        this.left_offset = 0;
+        this.top_offset = 0;
         this.animating = false;
         this.collision_int;
         this.wall_ids = [];
@@ -56,7 +58,7 @@ class Engine {
             document.getElementById("container").appendChild(tile);
         });
     }
-    animatePlayer(direction, speed){
+    movePlayer(direction, speed){
         var player = document.getElementById("player");
         this.anim_interval = setInterval(function(){
             switch (direction){
@@ -67,7 +69,7 @@ class Engine {
                     player.style.top = (parseInt(player.style.top) + speed) + "px";
                     break;
                 case "left":
-                    player.style.left = (parseInt(player.style.left) - speed) + "px";
+                    player.style.left = ((parseInt(player.style.left) - this.left_offset) - speed) + "px";
                     break;
                 case "right":
                     player.style.left = (parseInt(player.style.left) + speed) + "px";
@@ -80,7 +82,7 @@ class Engine {
         var transform = style.getPropertyValue("transform"); //Add other methods back in
         if (transform != "none") {
             var values = transform.split("(")[1].split(")")[0].split(",");
-            var angle = Math.round(Math.atan2(values[1],values[0]) * (180/Math.PI));
+            var angle = Math.round(Math.atan2(values[1], values[0]) * (180 / Math.PI));
             return (angle < 0 ? angle + 360 : angle);
         }
         return 0;
@@ -105,10 +107,10 @@ class Engine {
                 //this.detectCollision();
                 switch (code) {
                     case 38:
-                        this.animatePlayer("up", 2);
+                        this.movePlayer("up", 2);
                         break;
                     case 40:
-                        this.animatePlayer("down", 2);
+                        this.movePlayer("down", 2);
                         break;
                     case 37:
                         this.rotatePlayer("counter", 2);
