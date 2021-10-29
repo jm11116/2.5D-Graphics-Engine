@@ -20,7 +20,6 @@ class Engine {
         this.animating = false;
         this.collision_int;
         this.bounds_collision_int;
-        this.wall_ids = [];
         this.validateMapData();
         this.draw2DMap();
         this.bindKeyboard();
@@ -59,13 +58,16 @@ class Engine {
     }
     animatePlayer(direction, speed){
         var player = document.getElementById("player");
-        this.anim_interval = setInterval(function(){
+        this.anim_interval = setInterval(() => {
             switch (direction){
                 case "up":
                     player.style.top = (parseInt(player.style.top) - speed) + "px";
+                    player.style.left = (parseInt(player.style.left) + (this.getRotation(player) / 10)) + "px";
+                    console.log(this.getRotation(player) / 100);
                     break;
                 case "down":
                     player.style.top = (parseInt(player.style.top) + speed) + "px";
+                    player.style.left = (parseInt(player.style.left) - (this.getRotation(player) / 10)) + "px";
                     break;
                 }
         }, speed);
@@ -95,7 +97,7 @@ class Engine {
     }
     bindKeyboard(){
         document.addEventListener("keydown", (e) => {
-            this.boundsCollision();
+            //this.boundsCollision();
             var code = e.which || e.key;
             if (this.animating === false){
                 this.animating = true;
