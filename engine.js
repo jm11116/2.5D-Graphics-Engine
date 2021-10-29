@@ -62,25 +62,26 @@ class Engine {
             var rotation = this.getRotation(player);
             switch (direction){
                 case "up":
-                    if (rotation <= 360 && rotation >= 270){
+                    if (rotation <= 360 && rotation > 270){
                         rotation = Math.abs(rotation - 360); //abs converts negative to positive
                         player.style.top = (parseInt(player.style.top) - speed) + "px";
                         player.style.left = (parseInt(player.style.left) - (rotation / 10)) + "px";
+                    } else if (rotation <= 270 && rotation >= 180){
+                        rotation = Math.abs(rotation - 270);
+                        //player.style.top = (parseInt(player.style.top) + speed) + "px";
+                        //player.style.left = (parseInt(player.style.left) - (rotation / 10)) + "px";
                     } else if (rotation <= 90){
                         player.style.top = (parseInt(player.style.top) - speed) + "px";
                         player.style.left = (parseInt(player.style.left) + (rotation / 10)) + "px";
-                    } /*else if (rotation > 90){
-                        player.style.top = (parseInt(player.style.top) - speed) + "px";
-                        player.style.left = (parseInt(player.style.left) + ((rotation - 90) / 10)) + "px";
-                    }*/
-                    console.log(rotation);
+                    }
                     break;
                 case "down":
                     player.style.top = (parseInt(player.style.top) + speed) + "px";
                     player.style.left = (parseInt(player.style.left) - (rotation / 10)) + "px";
                     break;
                 }
-                //Diagonal directions work when dividing 0 - 90 by 10. Need to manually go in and cajole each rotation calc to a value between 0 - 90
+                console.log(rotation);
+                //Diagonal directions work when dividing 0 - 90 by 10. Need to manually go in and cajole each rotation calc to a value between 0 - 90. Bottom quarters may need to have their caulcations reversed.
         }, speed);
     }
     getRotation(element){
