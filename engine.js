@@ -59,19 +59,29 @@ class Engine {
     animatePlayer(direction, speed){
         var player = document.getElementById("player");
         this.anim_interval = setInterval(() => {
+            var rotation = this.getRotation(player);
             switch (direction){
                 case "up":
-                    player.style.top = (parseInt(player.style.top) - speed) + "px";
-                    player.style.left = (parseInt(player.style.left) + (this.getRotation(player) / 10)) + "px";
-                    console.log(this.getRotation(player) / 100);
+                    if (rotation <= 360 && rotation >= 270){
+                        rotation = Math.abs(rotation - 360); //abs converts negative to positive
+                        player.style.top = (parseInt(player.style.top) - speed) + "px";
+                        player.style.left = (parseInt(player.style.left) - (rotation / 10)) + "px";
+                    } else if (rotation <= 90){
+                        player.style.top = (parseInt(player.style.top) - speed) + "px";
+                        player.style.left = (parseInt(player.style.left) + (rotation / 10)) + "px";
+                    } /*else if (rotation > 90){
+                        player.style.top = (parseInt(player.style.top) - speed) + "px";
+                        player.style.left = (parseInt(player.style.left) + ((rotation - 90) / 10)) + "px";
+                    }*/
+                    console.log(rotation);
                     break;
                 case "down":
                     player.style.top = (parseInt(player.style.top) + speed) + "px";
-                    player.style.left = (parseInt(player.style.left) - (this.getRotation(player) / 10)) + "px";
+                    player.style.left = (parseInt(player.style.left) - (rotation / 10)) + "px";
                     break;
                 }
+                //Diagonal directions work when dividing 0 - 90 by 10. Need to manually go in and cajole each rotation calc to a value between 0 - 90
         }, speed);
-        //For each degree of rotation, the box will need to move a little bit faster in that direction? So, 0 degrees will change top: -1, left: 0 for a 1 pixel height decrease. 1 degrees will change top -1, left -1 (1 pixel height decrease, 1 pixel right increase). Won't adding 180 to left/right adjustments be fucked, though? Should it just be capped at 1 - 5 pixels left depending on degree of rotation? Algorithm to get floating point each time? Will CSS even honor deg floats? Maximum left/right speed should be multiple of 90 (halfway turn). What about (rotation / 10) for 1 through 9 horizontal pixel movements? Good idea but a sudden 9 pixel jump is fucked. (rotation / 100) for 0.9-like jumps?
     }
     getRotation(element){
         var style = window.getComputedStyle(element, null);
@@ -101,7 +111,6 @@ class Engine {
             var code = e.which || e.key;
             if (this.animating === false){
                 this.animating = true;
-                //this.detectCollision();
                 switch (code) {
                     case 38:
                         this.animatePlayer("up", 2);
