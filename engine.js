@@ -72,7 +72,7 @@ class Engine {
     }
     getRotation(element){
         var style = window.getComputedStyle(element, null);
-        var transform = style.getPropertyValue("transform"); //Add other methods back in
+        var transform = style.getPropertyValue("transform"); //Add other methods back in, write a dedicated method to change all the ms-transform, etc stuff
         if (transform != "none") {
             var values = transform.split("(")[1].split(")")[0].split(",");
             var angle = Math.round(Math.atan2(values[1], values[0]) * (180 / Math.PI));
