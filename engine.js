@@ -3,7 +3,7 @@ class Engine {
         this.map = [
                     "#","#","#","#","#","#","#","#",
                     "#",".",".",".",".",".",".","#",
-                    "#",".",".",".",".",".",".","#",
+                    "#","#","#",".",".",".",".","#",
                     "#",".",".",".",".",".",".","#",
                     "#",".",".",".",".",".",".","#",
                     "#",".",".",".",".",".",".","#",
@@ -18,10 +18,9 @@ class Engine {
         this.anim_interval;
         this.rotate_interval;
         this.animating = false;
-        this.collision_int;
-        this.bounds_collision_int;
         this.reverse_rotation = 360;
         this.reverse_rotate_int;
+        this.wall_ids = [];
         this.validateMapData();
         this.draw2DMap();
         this.bindKeyboard();
@@ -49,6 +48,9 @@ class Engine {
             tile.classList.add("tile");
             if (type === "#"){
                 tile.classList.add("wall_tile");
+                var wall_id = "wall" + Math.floor(Math.random() * 9999);
+                this.wall_ids.push(wall_id);
+                tile.id = wall_id;
             } else if (type === "."){
                 tile.classList.add("floor_tile");
             } else if (type === "x"){
@@ -67,7 +69,7 @@ class Engine {
             switch (direction){
                 case "up":
                     if (rotation <= 360 && rotation > 270){
-                        var offset = Math.abs(rotation - 360) / 10; //abs converts negative to positive
+                        var offset = Math.abs(rotation - 360) / 10; //Left offsets between 0 - 9px based on player rotation
                         player.style.top = (player_top - speed) + "px";
                         player.style.left = (player_left - offset) + "px";
                     } else if (rotation <= 270 && rotation >= 180){
@@ -84,13 +86,7 @@ class Engine {
                         player.style.left = (player_left + offset) + "px";
                     }
                     break;
-                case "down":
-                    //player.style.top = (player_top + speed) + "px";
-                    //player.style.left = (player_left - (rotation / 10)) + "px";
-                    break;
                 }
-                //console.log(this.reverse_rotation - 180);
-                //Diagonal directions work when dividing 0 - 90 by 10. Need to manually go in and cajole each rotation calc to a value between 0 - 90. Bottom quarters may need to have their caulcations reversed.
         }, speed);
     }
     getRotation(element){
@@ -150,43 +146,8 @@ class Engine {
             clearInterval(this.anim_interval);
             clearInterval(this.rotate_interval);
             clearInterval(this.reverse_rotate_int);
-            clearInterval(this.bounds_collision_int);
-            //clearInterval(this.collision_int);
             this.animating = false;
         });
-    }
-    /*boundsCollision(){
-        this.bounds_collision_int = setInterval(() => {
-            var last_bottom = 0;
-            $(".wall_tile").each(function(i){
-                if (i = 0){
-                    last_bottom = $(this).position().top + $(this).height();
-                } else if (($(this).position().top + $(this).height()) > last_bottom){ //Search for map bottom, lowest value of bottom wall tiles (or highest since CSS)?
-                    last_bottom = $(this).position().top + $(this).height();
-                }
-                if (($("#player").position().top + $("#player").height()) > last_bottom){
-                    clearInterval(this.anim_interval);
-                    alert("Collision");
-                }
-            });
-        }, 2000);
-    }*/
-    /*detectCollision(){
-        this.collision_int = setInterval(() => {
-            var player_left = $("#player").position().left;
-            var player_right = $("#player").position().left + $("#player").width();
-            var player_top = $("#player").position().top;
-            var player_bottom = $("#player").position().top + $("#player").height();
-            $(".wall_tile").each(function(){
-                var wall_left = $(this).position().left;
-                var wall_right = $(this).position().left + $(this).width();
-                var wall_top = $(this).position().top;
-                var wall_bottom = $(this).position().top + $(this).height();
-                if (player_top < wall_bottom){
-                    console.log("Col");
-                }
-            });
-        }, 100);
     }
     drawColumns(){
         for (var i = 0; i <= this.columns - 1; i++){
@@ -218,7 +179,7 @@ class Engine {
                 height2 = height2 + 10;
             }
         }
-    }*/
+    }
 }
 
 var engine = new Engine();
