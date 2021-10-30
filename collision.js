@@ -4,6 +4,7 @@ class Collision {
         this.detected = false;
         this.iteration = 0;
         this.startCollisionCheck();
+        //Use this to start projecting 3D space, translucent automap + bump msg
     }
     startCollisionCheck(){ //Make only run on movement, performance
         this.collision_loop = setInterval(() => {

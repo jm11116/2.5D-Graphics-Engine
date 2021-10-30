@@ -1,17 +1,8 @@
 class Engine {
     constructor(){
-        this.map = [
-                    "#","#","#","#","#","#","#","#",
-                    "#",".",".",".",".",".",".","#",
-                    "#","#","#",".",".",".",".","#",
-                    "#",".",".",".",".",".",".","#",
-                    "#",".",".",".",".",".",".","#",
-                    "#",".",".",".",".",".",".","#",
-                    "#",".",".",".","x",".",".","#",
-                    "#",".",".",".",".",".",".","#",
-                    "#","#","#","#","#","#","#","#"
-                   ];
-        this.map_width = 8;
+        this.map = this.getRoomData();
+        console.log(this.map);
+        this.map_width = 16;
         this.columns = 60;
         this.col_width = 100 / this.columns;
         this.scale_factor = window.innerHeight / 10; //Smaller = bigger
@@ -24,6 +15,21 @@ class Engine {
         this.validateMapData();
         this.draw2DMap();
         this.bindKeyboard();
+    }
+    getRoomData(){
+        var string;
+        $.ajax({
+            url: "room_data.js",
+            async: false,
+            context: this,
+            error: function(xhr){
+                console.log(xhr.status);
+            },
+            success: function(json){
+                string = json;
+            }
+        });
+        return JSON.parse("[" + string + "]");
     }
     validateMapData(){
         if (!this.map.includes("x")){
