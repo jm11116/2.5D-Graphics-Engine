@@ -69,7 +69,6 @@ class Engine {
         var player = document.getElementById("player");
         this.anim_interval = setInterval(() => {
             var rotation = this.getRotation(player);
-            raycaster.cast(rotation);
             var player_top = parseInt(player.style.top);
             var player_left = parseInt(player.style.left);
             switch (direction){
@@ -112,6 +111,7 @@ class Engine {
             } else if (this.reverse_rotation < 0){
                 this.reverse_rotation = 360;
             }
+            raycaster.cast(this.getRotation(document.getElementById("player")));
         }, 10);
         var player = document.getElementById("player");
         if (direction === "counter"){
