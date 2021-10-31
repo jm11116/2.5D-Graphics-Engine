@@ -42,7 +42,7 @@ class Collision {
         } else {
             return false;
         }
-        //Use this to detect collision type too for the raytracer. Define the FOV (PI/4) and just rotate it with the player. Might be able to draw triangle using canvas. Cast one ray per column and get the collision type every time it hits a cell. When the collision type is a wall, get the wall's id somehow then get the distance as a float. How measure vector. You'll have to use sin and cos functions while take an angle.
+        //Use this to detect collision type too for the raytracer. Define the FOV (PI/4) and just rotate it with the player. Might be able to draw triangle using canvas. Cast one ray per column and get the collision type every time it hits a cell. When the collision type is a wall, get the wall's id somehow then get the distance as a float. How measure vector. You'll have to use sin and cos functions while take an angle. If can get the wall_id the ray stops at, maybe calc distance based on distance from player to the side that was hit (left + width or top + height). Can't measure distance by just line size because it could stop in middle of cell.
     }
 }
 

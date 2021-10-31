@@ -3,6 +3,7 @@ class Raycaster {
         this.cast(0);
     }
     cast(angle){
+        //Divide FOV by number of columns then use that to offset angle of each ray (ray0 = 0deg, ray1 = 4deg, ray2 = 8deg, etc)
         var angle = angle + 270;
         var canvas = document.getElementById("canvas");
         var context = canvas.getContext("2d");

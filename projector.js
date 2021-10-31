@@ -1,6 +1,6 @@
 class Projector {
     constructor(){
-        this.columns = 24;
+        this.columns = 10;
         this.col_width = 100 / this.columns;
         this.drawColumns();
     }
@@ -21,7 +21,7 @@ class Projector {
     createHallway(){
         var height1 = 100;
         var height2 = 0;
-        for (var i = 0; i <= this.columns; i++){ //Vary col height and brightness based on distance. ColH inverse to distance,smaller = further, bigger = closer. 24 columns looks nice so we'll need 24 rays per frame but will that be smooth?
+        for (var i = 0; i <= this.columns; i++){ //Vary col height and brightness based on distance. ColH inverse to distance,smaller = further, bigger = closer. 24 columns looks nice so we'll need 24 rays per frame but will that be smooth? Make a manual test, put player somewhere, and see if you can get it to paint the right column heights/brightnesses.
             if (i <= (this.columns / 2)){
                 var column = document.getElementById("column" + i);
                 column.style.height = height1 + "%";
