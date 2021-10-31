@@ -2,8 +2,6 @@ class Engine {
     constructor(){
         this.map = this.getRoomData();
         this.map_width = 16;
-        this.columns = 60;
-        this.col_width = 100 / this.columns;
         this.scale_factor = window.innerHeight / 13; //Smaller = bigger
         this.anim_interval;
         this.rotate_interval;
@@ -154,37 +152,6 @@ class Engine {
             clearInterval(this.reverse_rotate_int);
             this.animating = false;
         });
-    }
-    drawColumns(){
-        for (var i = 0; i <= this.columns - 1; i++){
-            var div = document.createElement("div");
-            div.style.width = this.col_width + "%";
-            div.style.height = "100%";
-            div.style.left = (i * (100 / this.columns)) + "%";
-            div.style.position = "absolute";
-            div.classList.add("column");
-            div.classList.add("vertical_center");
-            div.id = "column" + i;
-            document.body.appendChild(div);
-        }
-        this.createHallway();
-    }
-    createHallway(){
-        var height1 = 100;
-        var height2 = 0;
-        for (var i = 0; i <= this.columns; i++){
-            if (i <= (this.columns / 2)){
-                var column = document.getElementById("column" + i);
-                column.style.height = height1 + "%";
-                column.style.webkitFilter = "brightness(" + height1 + "%)";
-                height1 = height1 - 10;
-            } else if (i >= (this.columns / 2)){
-                var column = document.getElementById("column" + i);
-                column.style.height = height2 + "%";
-                column.style.webkitFilter = "brightness("+ height2 + "%)";
-                height2 = height2 + 10;
-            }
-        }
     }
 }
 
