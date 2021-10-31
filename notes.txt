@@ -1,0 +1,1 @@
+Maybe don't even cast rays. Just pick an angle and keep testing every pixel coordinate along the line at (length / map_size) intervals instead of fucking around with canvas lines. Get xy positions of intervals using the same method use to draw the rays now.
