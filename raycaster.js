@@ -30,7 +30,7 @@ class Raycaster {
             var x2 = x1 + Math.cos(Math.PI * angle / 180) * length;
             var y2 = y1 + Math.sin(Math.PI * angle / 180) * length;
             //this.getCellType(x2, y2);
-            coordinates.push(parseFloat(x2.toFixed(2)));
+            coordinates.push(parseInt(x2)); //Don't need floating point precision for tests but will need for distance
             //return [x2, y2];
         }
         return coordinates; //Current returns one coordinate alone the ray
