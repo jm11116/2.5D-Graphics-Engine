@@ -1,11 +1,10 @@
 class Engine {
     constructor(){
         this.map = this.getRoomData();
-        console.log(this.map);
         this.map_width = 16;
         this.columns = 60;
         this.col_width = 100 / this.columns;
-        this.scale_factor = window.innerHeight / 10; //Smaller = bigger
+        this.scale_factor = window.innerHeight / 20; //Smaller = bigger
         this.anim_interval;
         this.rotate_interval;
         this.animating = false;
@@ -70,6 +69,7 @@ class Engine {
         var player = document.getElementById("player");
         this.anim_interval = setInterval(() => {
             var rotation = this.getRotation(player);
+            raycaster.cast(rotation);
             var player_top = parseInt(player.style.top);
             var player_left = parseInt(player.style.left);
             switch (direction){
