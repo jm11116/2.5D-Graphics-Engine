@@ -4,7 +4,7 @@ class Engine {
         this.map_width = 16;
         this.columns = 60;
         this.col_width = 100 / this.columns;
-        this.scale_factor = window.innerHeight / 20; //Smaller = bigger
+        this.scale_factor = window.innerHeight / 13; //Smaller = bigger
         this.anim_interval;
         this.rotate_interval;
         this.animating = false;
