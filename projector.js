@@ -1,20 +1,28 @@
 class Projector {
     constructor(){
-        this.columns = 10;
+        this.columns = 60;
         this.col_width = 100 / this.columns;
-        this.scene1 = [[100, 95, 90, 85, 80, 75, 70, 65, 60, 55],
-                            [100, 90, 80, 70, 60, 50, 40, 30, 20, 10]];
-        this.scene2 = [[100, 80, 60, 40, 20, 20, 70, 80, 90, 100],
-                            [100, 80, 60, 40, 10, 0, 40, 60, 80, 100]];
-        this.scene3 = [[100, 90, 80, 70, 60, 50, 40, 85, 95, 100],
-                            [100, 80, 70, 60, 50, 40, 20, 85, 95, 100]];
+        this.random_scene = this.generateRandomScene();
+//Heights and brightnesses need to be a float between 0 - 100. 100 is the max column height, so for all distances you'll need to do math to get numbers that work. Maybe scaling factor?
         this.drawColumns();
-        this.manualDraw(this.scene3);
+        this.manualDraw(this.random_scene);
+    }
+    generateRandomScene(){
+        var scene = [];
+        for (var i = 0; i < this.columns; i++){
+            if (i < this.columns / 4){
+                var random_number = Math.floor(Math.random() * 100);
+            } else {
+                var random_number = Math.floor(Math.random() * 50);
+            }
+            scene.push(random_number);
+        }
+        return scene;
     }
     manualDraw(scene_data){
         for (var i = 0; i <= this.columns; i++){
-            $("#column" + i).css("height", scene_data[0][i] + "%");
-            $("#column" + i).css("filter", "brightness(" + scene_data[1][i] + "%)");
+            $("#column" + i).css("height", scene_data[i] + "%");
+            $("#column" + i).css("filter", "brightness(" + scene_data[i] + "%)");
         }
     }
     drawColumns(){
