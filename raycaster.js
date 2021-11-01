@@ -1,5 +1,6 @@
 class Raycaster {
     constructor(){
+        this.fov = 60;
         this.cast(0);
     }
     cast(angle){
@@ -22,7 +23,7 @@ class Raycaster {
     }
     getRayTestCoords(angle){
         var coordinates = [];
-        for (var i = 1; i <= 5; i++){
+        for (var i = 1; i <= 1; i++){
             //var angle = angle + 270;
             var x1 = 80;
             var y1 = 80;
@@ -31,9 +32,24 @@ class Raycaster {
             var y2 = y1 + Math.sin(Math.PI * angle / 180) * length;
             //this.getCellType(x2, y2);
             coordinates.push(parseInt(x2)); //Don't need floating point precision for tests but will need for distance
+            coordinates.push(parseInt(y2));
             //return [x2, y2];
         }
+        this.drawCoordinates(coordinates);
         return coordinates; //Current returns one coordinate alone the ray
+    }
+    drawCoordinates(coordinates){
+        var coordinates = coordinates; //Array
+        $(".coordinate_marker").remove();
+        coordinates.forEach((coordinate, i) => {
+            if (i % 2 === 0){
+                var dot = document.createElement("div");
+                dot.classList.add("coordinate_marker");
+                dot.style.left = coordinates[i] + "px";
+                dot.style.top =  coordinates[i + 1] + "px";
+                document.body.appendChild(dot);
+            }
+        });
     }
     /*getCellType(x, y){
 

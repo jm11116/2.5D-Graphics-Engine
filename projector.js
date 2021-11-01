@@ -2,7 +2,20 @@ class Projector {
     constructor(){
         this.columns = 10;
         this.col_width = 100 / this.columns;
+        this.scene1 = [[100, 95, 90, 85, 80, 75, 70, 65, 60, 55],
+                            [100, 90, 80, 70, 60, 50, 40, 30, 20, 10]];
+        this.scene2 = [[100, 80, 60, 40, 20, 20, 70, 80, 90, 100],
+                            [100, 80, 60, 40, 10, 0, 40, 60, 80, 100]];
+        this.scene3 = [[100, 90, 80, 70, 60, 50, 40, 85, 95, 100],
+                            [100, 80, 70, 60, 50, 40, 20, 85, 95, 100]];
         this.drawColumns();
+        this.manualDraw(this.scene3);
+    }
+    manualDraw(scene_data){
+        for (var i = 0; i <= this.columns; i++){
+            $("#column" + i).css("height", scene_data[0][i] + "%");
+            $("#column" + i).css("filter", "brightness(" + scene_data[1][i] + "%)");
+        }
     }
     drawColumns(){
         for (var i = 0; i <= this.columns - 1; i++){
@@ -16,7 +29,7 @@ class Projector {
             div.id = "column" + i;
             document.body.appendChild(div);
         }
-        this.createHallway();
+        //this.createHallway();
     }
     createHallway(){
         var height1 = 100;

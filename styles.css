@@ -43,3 +43,10 @@ body {
     color: red;
     z-index: 1000;
 }
+.coordinate_marker {
+    width: 5px;
+    height: 5px;
+    background-color: red;
+    position: absolute;
+    z-index: 1001;
+}
