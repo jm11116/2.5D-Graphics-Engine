@@ -51,11 +51,12 @@ class Engine {
             tile.classList.add("tile");
             if (type === "#"){
                 tile.classList.add("wall_tile");
-                var wall_id = "wall" + Math.floor(Math.random() * 9999);
+                var wall_id = "wall" + i;
                 this.wall_ids.push(wall_id);
                 tile.id = wall_id;
             } else if (type === "."){
                 tile.classList.add("floor_tile");
+                tile.id = "floor" + i;
             } else if (type === "x"){
                 tile.classList.add("player");
                 tile.id = "player";
@@ -67,6 +68,7 @@ class Engine {
         var player = document.getElementById("player");
         this.anim_interval = setInterval(() => {
             var rotation = this.getRotation(player);
+            raycaster.getRayTestCoords(rotation);
             var player_top = parseInt(player.style.top);
             var player_left = parseInt(player.style.left);
             switch (direction){
@@ -109,18 +111,19 @@ class Engine {
             } else if (this.reverse_rotation < 0){
                 this.reverse_rotation = 360;
             }
-            raycaster.cast(this.getRotation(document.getElementById("player")));
         }, 10);
         var player = document.getElementById("player");
         if (direction === "counter"){
             this.rotate_interval = setInterval(() => {
                 player.style.transform = "rotate(" + (this.getRotation(player) - 1) + "deg)";
                 this.reverse_rotation++;
+                raycaster.getRayTestCoords(this.getRotation(player));
             }, speed);
         } else if (direction === "clock"){
             this.rotate_interval = setInterval(() => {
                 player.style.transform = "rotate(" + (this.getRotation(player) + 1) + "deg)";
                 this.reverse_rotation--;
+                raycaster.getRayTestCoords(this.getRotation(player));
             }, speed);
         }
     }
@@ -132,10 +135,10 @@ class Engine {
                 this.animating = true;
                 switch (code) {
                     case 38:
-                        this.animatePlayer("up", 2);
+                        //this.animatePlayer("up", 2);
                         break;
                     case 40:
-                        this.animatePlayer("down", 2);
+                        //this.animatePlayer("down", 2);
                         break;
                     case 37:
                         this.rotatePlayer("counter", 2);

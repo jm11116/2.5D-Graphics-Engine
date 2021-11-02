@@ -4,8 +4,8 @@ class Projector {
         this.col_width = 100 / this.columns;
         this.random_scene = this.generateRandomScene();
 //Heights and brightnesses need to be a float between 0 - 100. 100 is the max column height, so for all distances you'll need to do math to get numbers that work. Maybe scaling factor?
-        this.drawColumns();
-        this.render(this.random_scene);
+        //this.drawColumns();
+        //this.render(this.random_scene);
     }
     drawColumns(){
         for (var i = 0; i <= this.columns - 1; i++){
