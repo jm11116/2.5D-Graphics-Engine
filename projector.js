@@ -23,7 +23,7 @@ class Projector {
     generateRandomScene(){
         var scene = [];
         for (var i = 0; i < this.columns; i++){
-            if (i < this.columns / 4){
+            if (i < this.columns / 6){
                 var random_number = Math.floor(Math.random() * 120);
             } else {
                 var random_number = Math.floor(Math.random() * 50);
@@ -33,7 +33,7 @@ class Projector {
         return scene;
     }
     render(scene_data){
-        console.log(scene_data);
+        //console.log(scene_data);
         for (var i = 0; i <= this.columns; i++){
             $("#column" + i).css("height", scene_data[i] + "%");
             $("#column" + i).css("filter", "brightness(" + scene_data[i] + "%)");

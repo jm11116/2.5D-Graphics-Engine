@@ -10,7 +10,7 @@ class Raycaster {
             angle_start++;
         }
         projector.render(this.distances);
-        console.log(this.distances);
+        //console.log(this.distances);
     }
     getRayTestCoords(angle){
         var coordinates = [];
@@ -51,7 +51,7 @@ class Raycaster {
         let y = wall_x - player_x;
         let x = wall_y - player_y;
         var distance = Math.sqrt(x * x + y * y);
-        this.distances.push((distance / 10));
+        this.distances.push(100 - (distance / 5)); //Convert float to one that's inversely proportionate
         //console.log(wall_id + " is " + distance + " pixels away from player");
         //This function only returns difference between top left corners. Fix.
     }

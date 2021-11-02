@@ -135,16 +135,16 @@ class Engine {
                 this.animating = true;
                 switch (code) {
                     case 38:
-                        this.animatePlayer("up", 2);
+                        this.animatePlayer("up", 20);
                         break;
                     case 40:
-                        this.animatePlayer("down", 2);
+                        this.animatePlayer("down", 20);
                         break;
                     case 37:
-                        this.rotatePlayer("counter", 2);
+                        this.rotatePlayer("counter", 20);
                         break;
                     case 39:
-                        this.rotatePlayer("clock", 2);
+                        this.rotatePlayer("clock", 20);
                         break;
                 }
             }
