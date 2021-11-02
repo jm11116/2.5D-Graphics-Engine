@@ -115,13 +115,13 @@ class Engine {
         var player = document.getElementById("player");
         if (direction === "counter"){
             this.rotate_interval = setInterval(() => {
-                player.style.transform = "rotate(" + (this.getRotation(player) - 1) + "deg)";
+                player.style.transform = "rotate(" + (this.getRotation(player) - 5) + "deg)";
                 this.reverse_rotation++;
                 raycaster.getAllDistances(this.getRotation(player));
             }, speed);
         } else if (direction === "clock"){
             this.rotate_interval = setInterval(() => {
-                player.style.transform = "rotate(" + (this.getRotation(player) + 1) + "deg)";
+                player.style.transform = "rotate(" + (this.getRotation(player) + 5) + "deg)";
                 this.reverse_rotation--;
                 raycaster.getAllDistances(this.getRotation(player));
             }, speed);
@@ -141,10 +141,10 @@ class Engine {
                         this.animatePlayer("down", 20);
                         break;
                     case 37:
-                        this.rotatePlayer("counter", 20);
+                        this.rotatePlayer("counter", 1);
                         break;
                     case 39:
-                        this.rotatePlayer("clock", 20);
+                        this.rotatePlayer("clock", 1);
                         break;
                 }
             }

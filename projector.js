@@ -1,6 +1,6 @@
 class Projector {
     constructor(){
-        this.columns = 60;
+        this.columns = 40;
         this.col_width = 100 / this.columns;
         this.random_scene = this.generateRandomScene();
 //Heights and brightnesses need to be a float between 0 - 100. 100 is the max column height, so for all distances you'll need to do math to get numbers that work. Maybe scaling factor?
