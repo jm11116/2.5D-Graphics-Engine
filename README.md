@@ -5,9 +5,11 @@ This is a basic pseudo-3D graphics engine written in JavaScript, inspired by jav
 # Usage
 - Control using arrow keys.
 - Toggle stats with the 's' key.
+- Toggle color with the 'c' key.
 - Toggle the 2D minimap with the spacebar.
 - Increase draw distance by editing the draw distance variable inside engine.js (warning: this may interfere with the raytracer).
-- Increase visual fidelity by increasing the number of columns in projector.js (warning: your PC will chug).
+- Increase visual fidelity or increase performance by alerting the number of columns drawn in the renderer with the '[' and ']' keys (warning: increasing the column number might make your PC chug).
+- Create custom rooms by editing the two-dimensional array in room_data.js, marking walls with a '#', an empty space with a '.', and change the player position by changing the position of the 'x'. Creating rooms wider than 16 will require you to edit the map_width variable inside the Engine object.
 
 # Screenshot
 
