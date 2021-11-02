@@ -37,6 +37,15 @@ class Engine {
         if (!this.map.includes("x")){
             alert("Player location not specified in map data.");
         }
+        var occurences = [];
+        this.map.forEach((element) => {
+            if (element === "x"){
+                occurences.push(element);
+            }
+        });
+        if (occurences.length > 1){
+            alert("Cannot specify more than one player in map data.");
+        }
     }
     draw2DMap(){
         var current_column = 0;
