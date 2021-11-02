@@ -2,13 +2,15 @@ class Engine {
     constructor(){
         this.map = this.getRoomData();
         this.map_width = 16;
-        this.scale_factor = window.innerHeight / 13; //Smaller = bigger
+        this.scale_factor = window.innerHeight / 20; //Smaller = bigger
         this.anim_interval;
         this.rotate_interval;
         this.animating = false;
         this.reverse_rotation = 360;
+        this.reverse_rotation_speed = 5;
         this.reverse_rotate_int;
         this.wall_ids = [];
+        this.automap = false;
         this.validateMapData();
         this.draw2DMap();
         this.bindKeyboard();
@@ -61,20 +63,19 @@ class Engine {
                 tile.classList.add("player");
                 tile.id = "player";
             }
-            document.getElementById("container").appendChild(tile);
+            document.getElementById("map").appendChild(tile);
         });
     }
     animatePlayer(direction, speed){
         var player = document.getElementById("player");
         this.anim_interval = setInterval(() => {
             var rotation = this.getRotation(player);
-            raycaster.getAllDistances(rotation);
             var player_top = parseInt(player.style.top);
             var player_left = parseInt(player.style.left);
             switch (direction){
                 case "up":
                     if (rotation <= 360 && rotation > 270){
-                        var offset = Math.abs(rotation - 360) / 10; //Left offsets between 0 - 9px based on player rotation
+                        var offset = Math.abs(rotation - 360) / 10; //abs converts negative to positive
                         player.style.top = (player_top - speed) + "px";
                         player.style.left = (player_left - offset) + "px";
                     } else if (rotation <= 270 && rotation >= 180){
@@ -92,6 +93,7 @@ class Engine {
                     }
                     break;
                 }
+                raycaster.getAllDistances(rotation);
         }, speed);
     }
     getRotation(element){
@@ -111,18 +113,18 @@ class Engine {
             } else if (this.reverse_rotation < 0){
                 this.reverse_rotation = 360;
             }
-        }, 10);
+        }, 1);
         var player = document.getElementById("player");
         if (direction === "counter"){
             this.rotate_interval = setInterval(() => {
-                player.style.transform = "rotate(" + (this.getRotation(player) - 5) + "deg)";
-                this.reverse_rotation++;
+                player.style.transform = "rotate(" + (this.getRotation(player) - this.reverse_rotation_speed) + "deg)";
+                this.reverse_rotation = this.reverse_rotation + this.reverse_rotation_speed;
                 raycaster.getAllDistances(this.getRotation(player));
             }, speed);
         } else if (direction === "clock"){
             this.rotate_interval = setInterval(() => {
-                player.style.transform = "rotate(" + (this.getRotation(player) + 5) + "deg)";
-                this.reverse_rotation--;
+                player.style.transform = "rotate(" + (this.getRotation(player) + this.reverse_rotation_speed) + "deg)";
+                this.reverse_rotation = this.reverse_rotation - this.reverse_rotation_speed;
                 raycaster.getAllDistances(this.getRotation(player));
             }, speed);
         }
@@ -131,14 +133,21 @@ class Engine {
         document.addEventListener("keydown", (e) => {
             //this.boundsCollision();
             var code = e.which || e.key;
+            if (code == 32 && this.automap === false){ // tilde to toggle automap
+                $(".tile").css("opacity", "1");
+                this.automap = true;
+            } else if (code == 32 && this.automap === true){
+                $(".tile").css("opacity", "0");
+                this.automap = false;
+            }
             if (this.animating === false){
                 this.animating = true;
                 switch (code) {
                     case 38:
-                        this.animatePlayer("up", 20);
+                        this.animatePlayer("up", 2);
                         break;
                     case 40:
-                        this.animatePlayer("down", 20);
+                        this.animatePlayer("down", 2);
                         break;
                     case 37:
                         this.rotatePlayer("counter", 1);
