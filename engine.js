@@ -13,14 +13,15 @@ class Engine {
         this.wall_ids = [];
         this.automap = false;
         this.stats = false;
+        this.color = false;
         this.validateMapData();
         this.draw2DMap();
-        this.bindKeyboard();
+        this.bindings();
     }
     getRoomData(){
         var string;
         $.ajax({
-            url: "room_data.js",
+            url: "room_data2.js",
             async: false,
             context: this,
             error: function(xhr){
@@ -78,19 +79,19 @@ class Engine {
                 case "up":
                     if (rotation <= 360 && rotation > 270){
                         var offset = Math.abs(rotation - 360) / 10; //abs converts negative to positive
-                        player.style.top = (player_top - speed) + "px";
+                        player.style.top = (player_top - 2) + "px";
                         player.style.left = (player_left - offset) + "px";
                     } else if (rotation <= 270 && rotation >= 180){
                         var offset = Math.abs((this.reverse_rotation - 180) / 10);
-                        player.style.top = (player_top + speed) + "px";
+                        player.style.top = (player_top + 2) + "px";
                         player.style.left = (player_left - offset) + "px";
                     } else if (rotation < 180 && rotation >= 90){
                         var offset = (this.reverse_rotation - 180) / 10;
-                        player.style.top = (player_top + speed) + "px";
+                        player.style.top = (player_top + 2) + "px";
                         player.style.left = (player_left + offset) + "px";
                     } else if (rotation <= 90){
                         var offset = rotation / 10;
-                        player.style.top = (player_top - speed) + "px";
+                        player.style.top = (player_top - 2) + "px";
                         player.style.left = (player_left + offset) + "px";
                     }
                     break;
@@ -101,7 +102,7 @@ class Engine {
     }
     getRotation(element){
         var style = window.getComputedStyle(element, null);
-        var transform = style.getPropertyValue("transform"); //Add other methods back in, write a dedicated method to change all the ms-transform, etc stuff
+        var transform = style.getPropertyValue("transform");
         if (transform != "none") {
             var values = transform.split("(")[1].split(")")[0].split(",");
             var angle = Math.round(Math.atan2(values[1], values[0]) * (180 / Math.PI));
@@ -120,19 +121,21 @@ class Engine {
         var player = document.getElementById("player");
         if (direction === "counter"){
             this.rotate_interval = setInterval(() => {
-                player.style.transform = "rotate(" + (this.getRotation(player) - this.reverse_rotation_speed) + "deg)";
+                player.style.transform = "rotate(" + 
+                    (this.getRotation(player) - this.reverse_rotation_speed) + "deg)";
                 this.reverse_rotation = this.reverse_rotation + this.reverse_rotation_speed;
                 raycaster.getAllDistances(this.getRotation(player));
             }, speed);
         } else if (direction === "clock"){
             this.rotate_interval = setInterval(() => {
-                player.style.transform = "rotate(" + (this.getRotation(player) + this.reverse_rotation_speed) + "deg)";
+                player.style.transform = "rotate(" + 
+                    (this.getRotation(player) + this.reverse_rotation_speed) + "deg)";
                 this.reverse_rotation = this.reverse_rotation - this.reverse_rotation_speed;
                 raycaster.getAllDistances(this.getRotation(player));
             }, speed);
         }
     }
-    bindKeyboard(){
+    bindings(){
         document.addEventListener("keydown", (e) => {
             //this.boundsCollision();
             var code = e.which || e.key;
@@ -152,6 +155,16 @@ class Engine {
                 projector.changeColumnSize("bigger");
             } else if (code == 219){ //Opening square bracket
                 projector.changeColumnSize("smaller");
+            } else if (code == 67 && this.color === false){ //c letter key
+                $(".column").addClass("colored_column");
+                $("#sky").addClass("colored_sky");
+                $("#floor").addClass("colored_floor");
+                this.color = true;
+            } else if (code == 67 && this.color === true){
+                $(".column").removeClass("colored_column");
+                $("#sky").removeClass("colored_sky");
+                $("#floor").removeClass("colored_floor");
+                this.color = false;               
             }
             if (this.animating === false){
                 this.animating = true;

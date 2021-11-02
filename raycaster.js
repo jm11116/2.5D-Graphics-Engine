@@ -51,9 +51,6 @@ class Raycaster {
         var y = wall_x - player_x;
         var x = wall_y - player_y;
         var distance = Math.sqrt(x * x + y * y);
-        if (distance <= 0){
-            distance = 0;
-        }
         this.distances.push(100 - (distance / 4)); //Convert float to one that's inversely proportionate
         //console.log(wall_id + " is " + distance + " pixels away from player");
         //This function only returns difference between top left corners. Fix.

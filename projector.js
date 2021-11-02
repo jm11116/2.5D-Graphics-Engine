@@ -15,6 +15,9 @@ class Projector {
             div.classList.add("vertical_center");
             div.id = "column" + i;
             document.body.appendChild(div);
+            if (engine.color === true){
+                $(".column").addClass("colored_column");
+            }
         }
     }
     render(scene_data){

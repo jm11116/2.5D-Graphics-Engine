@@ -75,10 +75,9 @@ body {
 }
 #stats {
     top: 100vh;
-    left: 100vw;
+    right: 10%;
     width: 20vw;
     height: 5vh;
-    margin-left: -60vw;
     margin-top: -20vh;
     position: absolute;
     background-color: grey;
@@ -90,4 +89,18 @@ body {
     min-width: 350px;
     text-align: center;
     z-index: 999999;
+}
+
+/* Coloring */
+
+.colored_column {
+    background-color: rgb(255, 0, 0);
+}
+.colored_sky {
+    background: rgb(0,0,0);
+    background: linear-gradient(0deg, rgba(0,0,0,3) 0%, rgb(0, 20, 87) 100%) !important;
+}
+.colored_floor {
+    background: rgb(0,0,0);
+    background: linear-gradient(170deg, rgba(0,0,0,3) 0%, rgb(0, 155, 18) 100%) !important;
 }
