@@ -13,7 +13,7 @@ class Raycaster {
     }
     getRayTestCoords(angle){
         var coordinates = [];
-        for (var i = 1; i <= 20; i++){
+        for (var i = 1; i <= engine.draw_distance; i++){
             var x1 = $("#player").position().left;
             var y1 = $("#player").position().top;
             var length = i * engine.scale_factor / 2;
@@ -32,9 +32,10 @@ class Raycaster {
                 try {
                     var element = document.elementFromPoint(coordinates[i], coordinates[i + 1]).id;
                 } catch {
-                    return; //Prevents console throwing errors for non-existent elems out of bounds
+                    this.distances.push(null, null); //Prevents console throwing errors for non-existent elems out of bounds and pushes a blank column if wall can't be found
                 } finally {
                     if (element != null && element.includes("wall")){
+                        console.log(element);
                         found = true;
                         this.getDistanceToWall(element);
                     }

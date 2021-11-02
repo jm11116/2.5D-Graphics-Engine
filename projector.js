@@ -19,8 +19,13 @@ class Projector {
     }
     render(scene_data){
         for (var i = 0; i <= this.columns; i++){
-            $("#column" + i).css("height", scene_data[i] + "%");
-            $("#column" + i).css("filter", "brightness(" + scene_data[i] + "%)");
+            if (scene_data[i] != null){
+                $("#column" + i).css("height", scene_data[i] + "%");
+                $("#column" + i).css("filter", "brightness(" + scene_data[i] + "%)");
+            } else {
+                $("#column" + i).css("height", "0%");
+                $("#column" + i).css("filter", "brightness(0%)");
+            }
         }
     }
 }

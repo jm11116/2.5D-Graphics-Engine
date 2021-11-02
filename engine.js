@@ -2,6 +2,7 @@ class Engine {
     constructor(){
         this.map = this.getRoomData();
         this.map_width = 16;
+        this.draw_distance = 25;
         this.scale_factor = window.innerHeight / 20; //Smaller = bigger
         this.anim_interval;
         this.rotate_interval;
