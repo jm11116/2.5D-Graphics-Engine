@@ -1,6 +1,8 @@
 class Raycaster {
-    constructor(){
-        this.fov = 60;
+    getAllDistances(){
+        for (var i = 0; i < projector.columns; i++){
+            return;
+        }
     }
     getRayTestCoords(angle){
         var angle = angle - 90;
@@ -19,8 +21,9 @@ class Raycaster {
         return coordinates;
     }
     findWall(coordinates){
+        var found = false;
         coordinates.forEach((coordinate, i) => {
-            if (i % 2 === 0){
+            if (i % 2 === 0 && found === false){
                 try {
                     var element = document.elementFromPoint(coordinates[i], coordinates[i + 1]).id;
                 } catch {
@@ -28,6 +31,7 @@ class Raycaster {
                 } finally {
                     if (element != null && element.includes("wall")){
                         //console.log(element);
+                        found = true;
                         this.getDistanceToWall(element);
                     }
                 }
@@ -53,7 +57,7 @@ class Raycaster {
                 var dot = document.createElement("div");
                 dot.classList.add("coordinate_marker");
                 dot.style.left = coordinates[i] + "px";
-                dot.style.top =  coordinates[i + 1] + "px";
+                dot.style.top = coordinates[i + 1] + "px";
                 document.body.appendChild(dot);
             }
         });
