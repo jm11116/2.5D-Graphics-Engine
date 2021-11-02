@@ -2,7 +2,7 @@ class Engine {
     constructor(){
         this.map = this.getRoomData();
         this.map_width = 16;
-        this.draw_distance = 25;
+        this.draw_distance = 26;
         this.scale_factor = window.innerHeight / 20; //Smaller = bigger
         this.anim_interval;
         this.rotate_interval;
@@ -12,6 +12,7 @@ class Engine {
         this.reverse_rotate_int;
         this.wall_ids = [];
         this.automap = false;
+        this.stats = false;
         this.validateMapData();
         this.draw2DMap();
         this.bindKeyboard();
@@ -95,6 +96,7 @@ class Engine {
                     break;
                 }
                 raycaster.getAllDistances(rotation);
+                stats.refresh();
         }, speed);
     }
     getRotation(element){
@@ -137,9 +139,15 @@ class Engine {
             if (code == 32 && this.automap === false){ // tilde to toggle automap
                 $(".tile").css("opacity", "1");
                 this.automap = true;
-            } else if (code == 32 && this.automap === true){
+            } else if (code == 32 && this.automap === true){ //32 = space
                 $(".tile").css("opacity", "0");
                 this.automap = false;
+            } else if (code == 83 && this.stats === false){
+                $("#stats").hide();
+                this.stats = true;
+            } else if (code == 83 && this.stats === true){
+                $("#stats").show();
+                this.stats = false;
             }
             if (this.animating === false){
                 this.animating = true;
@@ -163,6 +171,7 @@ class Engine {
             clearInterval(this.anim_interval);
             clearInterval(this.rotate_interval);
             clearInterval(this.reverse_rotate_int);
+            clearInterval(collision.collision_loop);
             this.animating = false;
         });
     }

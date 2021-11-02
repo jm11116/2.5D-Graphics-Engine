@@ -1,23 +1,22 @@
 class Collision {
     constructor(){
         this.collision_loop;
-        this.detected = false;
+        this.collision = "None";
         this.iteration = 0;
-        //this.startCollisionCheck();
-        //Use this to start projecting 3D space, translucent automap + bump msg
     }
-    startCollisionCheck(){ //Make only run on movement, performance
+    collisionCheck(){ //Make only run on movement, performance
         this.collision_loop = setInterval(() => {
             this.wallCollision();
-        }, 100);
+        }, 800);
     }
     wallCollision(){
         engine.wall_ids.forEach((id) => {
             var rect1 = this.rectBounds($("#player"));
             var rect2 = this.rectBounds($("#" + id));
             if (this.rectCollision(rect1, rect2)){
-                console.log("Collision" + this.iteration);
-                this.iteration++;
+                this.collision = "Collided with " + id;
+            } else {
+                this.collision = "None";
             }
         });
     }

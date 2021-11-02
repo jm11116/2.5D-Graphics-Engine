@@ -6,12 +6,19 @@
 <script src="collision.js" defer></script> <!--Defer to wait until HTML loaded-->
 <script src="raycaster.js" defer></script> <!--Defer to wait until HTML loaded-->
 <script src="projector.js" defer></script> <!--Defer to wait until HTML loaded-->
+<script src="stats.js" defer></script>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<!--<canvas id="canvas"></canvas>-->
+<div id="stats"></div>
+<!--<canvas id="canvas"></canvas> Used to draw rays visually, not in final version-->
 <div id="map"></div>
 <div id="sky"></div>
 <div id="floor"></div>
+<script>
+$("document").ready(() => { //Get initial frame
+    raycaster.getAllDistances(engine.getRotation(document.getElementById("player")));
+});
+</script>
 </body>
 </html>

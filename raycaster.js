@@ -4,7 +4,7 @@ class Raycaster {
     }
     getAllDistances(angle){
         this.distances = [];
-        var angle_start = (angle - 90) - 30; //60 columns, so start casting from (current_angle - 30)
+        var angle_start = (angle - 90) - 30; //60 columns, so start casting from (current_angle - 30). Should we base this on this.columns?
         for (var i = 0; i < projector.columns; i++){
             this.getRayTestCoords(angle_start);
             angle_start++;
@@ -22,7 +22,6 @@ class Raycaster {
             coordinates.push(parseInt(x2));
             coordinates.push(parseInt(y2));
         }
-        //this.drawCoordinates(coordinates);
         this.findWall(coordinates);
     }
     findWall(coordinates){
@@ -35,7 +34,6 @@ class Raycaster {
                     this.distances.push(null, null); //Prevents console throwing errors for non-existent elems out of bounds and pushes a blank column if wall can't be found
                 } finally {
                     if (element != null && element.includes("wall")){
-                        console.log(element);
                         found = true;
                         this.getDistanceToWall(element);
                     }

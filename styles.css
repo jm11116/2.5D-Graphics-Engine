@@ -73,3 +73,21 @@ body {
     position: absolute;
     z-index: 0;
 }
+#stats {
+    top: 100vh;
+    left: 100vw;
+    width: 20vw;
+    height: 5vh;
+    margin-left: -60vw;
+    margin-top: -20vh;
+    position: absolute;
+    background-color: grey;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+    color: black;
+    padding-bottom: 0.7em;
+    min-width: 300px;
+    text-align: center;
+    z-index: 999999;
+}
