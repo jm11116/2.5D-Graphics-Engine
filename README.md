@@ -10,6 +10,10 @@ This is a basic pseudo-3D graphics engine written in JavaScript, inspired by jav
 - Increase draw distance by editing the draw distance variable inside engine.js (warning: this may interfere with the raytracer).
 - Increase visual fidelity by increasing the number of columns in projector.js.
 
+# Screenshots
+
+<img src="https://github.com/jm11116/2.5D-Game-Engine/blob/main/screenshots/Screen%20Shot%202021-11-02%20at%202.43.15%20PM.jpeg" style="max-width:650px"/>
+
 # Future features
 - Compensation for fish-eye effect.
 - Performance improvements by computing things once per frame instead of per function call.
