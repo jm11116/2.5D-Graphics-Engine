@@ -1,7 +1,7 @@
 class Raycaster {
     constructor(){
         this.distances = [];
-        this.fov = 90;
+        this.fov = 60;
         this.half_fov = this.fov / 2;
     }
     getAllDistances(angle){
