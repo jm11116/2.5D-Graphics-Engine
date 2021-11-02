@@ -1,6 +1,6 @@
 class Projector {
     constructor(){
-        this.columns = 60;
+        this.columns = 44;
         this.col_width = 100 / this.columns;
         this.drawColumns();
     }
