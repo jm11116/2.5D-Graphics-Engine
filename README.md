@@ -1,4 +1,4 @@
-# 2.5D-Game-Engine
+# 2.5D-Graphics-Engine
 
 This is a basic pseudo-3D graphics engine written in JavaScript, inspired by javidx9's command-line FPS engine. Enable hardware acceleration in your browser for the best experience.
 
