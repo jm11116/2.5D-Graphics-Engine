@@ -25,7 +25,7 @@ body {
 .tile {
     position: absolute;
     z-index: 998;
-    opacity: 0.1;
+    opacity: 0;
 }
 .wall_tile {
     background-color: teal;
@@ -56,7 +56,7 @@ body {
 }
 #sky {
     background: rgb(0,0,0);
-    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgb(38, 38, 38) 100%);
+    background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgb(77, 77, 77) 100%);
     width: 100vw;
     height: 50%;
     top: 0px;
@@ -66,7 +66,7 @@ body {
 }
 #floor {
     background: rgb(0,0,0);
-    background: linear-gradient(170deg, rgba(0,0,0,1) 0%, rgb(38, 38, 38) 100%);
+    background: linear-gradient(170deg, rgba(0,0,0,1) 0%, rgb(77, 77, 77) 100%);
     width: 100vw;
     height: 50%;
     top: 50%;
