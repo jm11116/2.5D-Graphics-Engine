@@ -6,8 +6,9 @@ class Stats {
         setInterval(() => {
             $("#stats").html(
                     "<p>Rotation: " + engine.getRotation(document.getElementById("player")) + ", " +
-                    "X: " + parseFloat($("#player").position().left.toFixed(2)) + ", " + 
-                    "Y: " + parseFloat($("#player").position().top.toFixed(2)) + "</p>"
+                    "X: " + $("#player").position().left.toFixed(0) + ", " + 
+                    "Y: " + $("#player").position().top.toFixed(0) + ", " +
+                    "Scale: " + projector.columns + "</p>"
                 );
         }, 600);
     }

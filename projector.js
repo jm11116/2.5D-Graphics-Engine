@@ -28,6 +28,17 @@ class Projector {
             }
         }
     }
+    changeColumnSize(type){
+        if (type === "bigger"){
+            this.columns++;
+        } else if (type === "smaller"){
+            this.columns--;
+        }
+        this.col_width = 100 / this.columns;
+        $(".column").remove();
+        this.drawColumns();
+        raycaster.getAllDistances(engine.getRotation(document.getElementById("player")));
+    }
 }
 
 var projector = new Projector();

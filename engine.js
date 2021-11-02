@@ -148,6 +148,10 @@ class Engine {
             } else if (code == 83 && this.stats === true){
                 $("#stats").show();
                 this.stats = false;
+            } else if (code == 221){ //Closing square bracket
+                projector.changeColumnSize("bigger");
+            } else if (code == 219){ //Opening square bracket
+                projector.changeColumnSize("smaller");
             }
             if (this.animating === false){
                 this.animating = true;
