@@ -1,7 +1,7 @@
 # 2.5D-Game-Engine
 Basic 2.5D Game Engine. Experimental.
 
-This is a basic pseudo-3D graphics engine written in JavaScript, inspired by javidx9's command-line FPS engine. Enable hardware acceleration enabled in your browser for the best experience.
+This is a basic pseudo-3D graphics engine written in JavaScript, inspired by javidx9's command-line FPS engine. Enable hardware acceleration in your browser for the best experience.
 
 # Usage
 - Control using arrow keys.
