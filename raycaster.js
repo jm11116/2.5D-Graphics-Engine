@@ -1,10 +1,12 @@
 class Raycaster {
     constructor(){
         this.distances = [];
+        this.fov = 90;
+        this.half_fov = this.fov / 2;
     }
     getAllDistances(angle){
         this.distances = [];
-        var angle_start = (angle - 90) - 30; //60 columns, so start casting from (current_angle - 30). Should we base this on this.columns?
+        var angle_start = (angle - 90) - this.half_fov; //60 columns, so start casting from (current_angle - 30). Should we base this on this.columns?
         for (var i = 0; i < projector.columns; i++){
             this.getRayTestCoords(angle_start);
             angle_start++;
@@ -13,7 +15,7 @@ class Raycaster {
     }
     getRayTestCoords(angle){
         var coordinates = [];
-        for (var i = 1; i <= engine.draw_distance; i++){
+        for (var i = 0; i <= engine.draw_distance; i++){
             var x1 = $("#player").position().left;
             var y1 = $("#player").position().top;
             var length = i * engine.scale_factor / 2;
@@ -25,7 +27,7 @@ class Raycaster {
         this.findWall(coordinates);
     }
     findWall(coordinates){
-        var found = false;
+        var found = false; //True when wall found so doesn't return walls behind walls
         coordinates.forEach((coordinate, i) => {
             if (i % 2 === 0 && found === false){
                 try {
@@ -46,8 +48,8 @@ class Raycaster {
         var player_y = $("#player").position().top;
         var wall_x = $("#" + wall_id).position().left;
         var wall_y = $("#" + wall_id).position().top;
-        let y = wall_x - player_x;
-        let x = wall_y - player_y;
+        var y = wall_x - player_x;
+        var x = wall_y - player_y;
         var distance = Math.sqrt(x * x + y * y);
         if (distance <= 0){
             distance = 0;
