@@ -3,7 +3,7 @@ class Engine {
         this.map = this.getRoomData();
         this.map_width = 16;
         this.draw_distance = 26;
-        this.scale_factor = window.innerHeight / 19; //Smaller = bigger
+        this.scale_factor = window.innerHeight / 18; //Smaller = bigger
         this.anim_interval;
         this.rotate_interval;
         this.animating = false;

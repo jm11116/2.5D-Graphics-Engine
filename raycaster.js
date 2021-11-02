@@ -6,7 +6,7 @@ class Raycaster {
     }
     getAllDistances(angle){
         this.distances = [];
-        var angle_start = (angle - 90) - this.half_fov; //60 columns, so start casting from (current_angle - 30). Should we base this on this.columns?
+        var angle_start = (angle - 90) - (projector.columns / 2); //60 columns, so start casting from (current_angle - 30). Should we base this on this.columns?
         for (var i = 0; i < projector.columns; i++){
             this.getRayTestCoords(angle_start);
             angle_start++;
