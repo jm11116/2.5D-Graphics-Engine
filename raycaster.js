@@ -14,6 +14,7 @@ class Raycaster {
             coordinates.push(parseInt(x2));
             coordinates.push(parseInt(y2));
         }
+        //this.drawCoordinates(coordinates);
         this.findWall(coordinates);
         return coordinates;
     }
@@ -26,8 +27,8 @@ class Raycaster {
                     return; //Prevents console throwing errors for non-existent elems out of bounds
                 } finally {
                     if (element != null && element.includes("wall")){
-                        console.log(element);
-                        //this.getDistanceToWall(element);
+                        //console.log(element);
+                        this.getDistanceToWall(element);
                     }
                 }
             }
@@ -38,6 +39,11 @@ class Raycaster {
         var player_y = $("#player").position().top;
         var wall_x = $("#" + wall_id).position().left;
         var wall_y = $("#" + wall_id).position().top;
+        let y = wall_x - player_x;
+        let x = wall_y - player_y;
+        var distance = Math.sqrt(x * x + y * y);
+        console.log(wall_id + " is " + distance + " pixels away from player");
+        //This function only returns difference between top left corners. Fix.
     }
     drawCoordinates(coordinates){
         var coordinates = coordinates; //Array
