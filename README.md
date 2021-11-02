@@ -19,3 +19,5 @@ This is a basic pseudo-3D graphics engine written in JavaScript, inspired by jav
 - Reverse movement.
 - Faster movement on y-axis.
 - Performance improvements by computing things once per frame instead of per function call.
+- Texture mapping (grass, night sky, brick texture, etc).
+- Sprites.
