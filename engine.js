@@ -68,7 +68,7 @@ class Engine {
         var player = document.getElementById("player");
         this.anim_interval = setInterval(() => {
             var rotation = this.getRotation(player);
-            raycaster.getRayTestCoords(rotation);
+            raycaster.getAllDistances(rotation);
             var player_top = parseInt(player.style.top);
             var player_left = parseInt(player.style.left);
             switch (direction){
@@ -117,13 +117,13 @@ class Engine {
             this.rotate_interval = setInterval(() => {
                 player.style.transform = "rotate(" + (this.getRotation(player) - 1) + "deg)";
                 this.reverse_rotation++;
-                raycaster.getRayTestCoords(this.getRotation(player));
+                raycaster.getAllDistances(this.getRotation(player));
             }, speed);
         } else if (direction === "clock"){
             this.rotate_interval = setInterval(() => {
                 player.style.transform = "rotate(" + (this.getRotation(player) + 1) + "deg)";
                 this.reverse_rotation--;
-                raycaster.getRayTestCoords(this.getRotation(player));
+                raycaster.getAllDistances(this.getRotation(player));
             }, speed);
         }
     }

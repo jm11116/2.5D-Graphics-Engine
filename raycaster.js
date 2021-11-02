@@ -1,11 +1,18 @@
 class Raycaster {
-    getAllDistances(){
+    constructor(){
+        this.distances = [];
+    }
+    getAllDistances(angle){
+        this.distances = [];
+        var angle_start = (angle - 90) - 30; //60 columns, so start casting from (current_angle - 30)
         for (var i = 0; i < projector.columns; i++){
-            return;
+            this.getRayTestCoords(angle_start);
+            angle_start++;
         }
+        projector.render(this.distances);
+        console.log(this.distances);
     }
     getRayTestCoords(angle){
-        var angle = angle - 90;
         var coordinates = [];
         for (var i = 1; i <= 10; i++){
             var x1 = $("#player").position().left;
@@ -18,7 +25,6 @@ class Raycaster {
         }
         //this.drawCoordinates(coordinates);
         this.findWall(coordinates);
-        return coordinates;
     }
     findWall(coordinates){
         var found = false;
@@ -30,7 +36,6 @@ class Raycaster {
                     return; //Prevents console throwing errors for non-existent elems out of bounds
                 } finally {
                     if (element != null && element.includes("wall")){
-                        //console.log(element);
                         found = true;
                         this.getDistanceToWall(element);
                     }
@@ -46,7 +51,8 @@ class Raycaster {
         let y = wall_x - player_x;
         let x = wall_y - player_y;
         var distance = Math.sqrt(x * x + y * y);
-        console.log(wall_id + " is " + distance + " pixels away from player");
+        this.distances.push((distance / 10));
+        //console.log(wall_id + " is " + distance + " pixels away from player");
         //This function only returns difference between top left corners. Fix.
     }
     drawCoordinates(coordinates){

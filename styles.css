@@ -24,6 +24,8 @@ body {
 }
 .tile {
     position: absolute;
+    z-index: 998;
+    opacity: 0;
 }
 .wall_tile {
     background-color: teal;
