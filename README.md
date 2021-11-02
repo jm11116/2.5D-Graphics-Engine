@@ -15,4 +15,7 @@ This is a basic pseudo-3D graphics engine written in JavaScript, inspired by jav
 
 # Future features
 - Compensation for fish-eye effect.
+- Collision (90% finished).
+- Reverse movement.
+- Faster movement on y-axis.
 - Performance improvements by computing things once per frame instead of per function call.
