@@ -1,1 +1,8 @@
-Maybe don't even cast rays. Just pick an angle and keep testing every pixel coordinate along the line at (length / map_size) intervals instead of fucking around with canvas lines. Get xy positions of intervals using the same method use to draw the rays now.
+Optimization ideas:
+
+- Calculate the rotation thing every 10ms every time a key is down using a dedicated method, saving tons of work calling engine.getRotation() a dozen times each frame. Store result as property of Engine.
+- Rather than test the entire length of a ray, move on to the next ray when a wall is detected. Eliminates the need for draw distance limit and prevents need for running ray calculations beyond walls.
+- Calculate stuff like $("#player").position() once per frame and reference the result from a property of Engine, rather than needlessly running the position() method dozens of times per tick.
+
+Extreme ideas:
+- Cast rays once per two columns and just work out the delta manually.
